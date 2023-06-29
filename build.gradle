@@ -22,13 +22,37 @@ test {
 }
 
 tasks.named('compileKotlin', KotlinCompilationTask.class) {
-	compilerOptions.jvmTarget.set(JvmTarget.JVM_11)
+	compilerOptions.freeCompilerArgs.add('-opt-in=kotlin.RequiresOptIn')
+	compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
 	compilerOptions.freeCompilerArgs.add('-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi')
 	compilerOptions.freeCompilerArgs.add('-opt-in=kotlin.ExperimentalStdlibApi')
+	compilerOptions.freeCompilerArgs.add('-opt-in=kotlin.RequiresOptIn')
+}
+
+compileKotlin {
+	kotlinOptions {
+		freeCompilerArgs += [
+			'-opt-in=kotlin.RequiresOptIn',
+			'-opt-in=kotlin.contracts.ExperimentalContracts',
+			'-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi',
+			'-opt-in=org.koitharu.kotatsu.parsers.InternalParsersApi',
+		]
+	}
 }
 
 compileTestKotlin {
-	kotlinOptions.jvmTarget = '11'
+	kotlinOptions {
+		freeCompilerArgs += [
+			'-opt-in=kotlin.RequiresOptIn',
+			'-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi',
+			'-opt-in=org.koitharu.kotatsu.parsers.InternalParsersApi',
+		]
+	}
+}
+
+
+compileTestKotlin {
+	kotlinOptions.jvmTarget = '17'
 }
 
 application {
@@ -47,7 +71,7 @@ jar {
 
 
 dependencies {
-	implementation 'com.github.KotatsuApp:kotatsu-parsers:92bfc7e'
+	implementation 'com.github.KotatsuApp:kotatsu-parsers:92bfc7e9fa'
 
 	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0'
 	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.7.0'

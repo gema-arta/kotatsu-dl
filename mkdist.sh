@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
-rm -rf ./build/libs
-rm -rf ./build/dist
+#rm -rf ./build/libs
+#rm -rf ./build/dist
 ./gradlew jar
 JAR_FILE=$(find ./build/libs -name '*.jar')
 VERSION=$(echo "$JAR_FILE" | grep -o -e "[0-9.]*[0-9]")
